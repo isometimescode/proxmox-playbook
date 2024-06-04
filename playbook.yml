@@ -1,0 +1,17 @@
+- name: Proxmox Cluster
+  hosts: fortresscluster
+  vars_files:
+    - host_vars/vault.yml
+
+  tasks:
+    - name: User management
+      block:
+        - name: Add or update users
+          ansible.builtin.import_role:
+            name: isometimescode.users
+
+    - name: Software installs
+      block:
+        - name: Common software
+          ansible.builtin.import_role:
+            name: common

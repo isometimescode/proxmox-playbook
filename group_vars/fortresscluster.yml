@@ -1,0 +1,14 @@
+## user data
+users_create_homedirs: false
+
+users:
+  - username: toni
+    home: "/home/toni"
+    groups: ['users', 'media']
+    uid: 1000
+    update_password: on_create
+    password: "{{ vault_toni_pw | password_hash('sha512') }}"
+    ssh_key: ["{{ vault_ssh_pub_key }}"]
+
+  - username: media
+    uid: 1001

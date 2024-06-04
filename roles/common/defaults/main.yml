@@ -1,0 +1,10 @@
+---
+common_packages:
+  install: []
+  uninstall: []
+  services: []
+common_pip:
+  install: []
+common_docker_compose:
+  files: []
+common_mergerfs_release_type: ''

@@ -1,0 +1,15 @@
+---
+
+# proxmox cluster
+fortresscluster:
+  vars:
+    ansible_connection: ssh
+    ansible_user: root
+    ansible_ssh_private_key_file: /Users/toni/.ssh/ff_id_rsa
+
+  hosts:
+    filefortress:
+      ansible_host: 192.168.50.250
+
+    videofortress:
+      ansible_host: 192.168.50.244

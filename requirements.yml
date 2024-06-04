@@ -1,0 +1,7 @@
+---
+
+roles:
+  - name: geerlingguy.docker
+  - name: isometimescode.users
+    src: https://github.com/isometimescode/ansible-users
+    version: "1.3"

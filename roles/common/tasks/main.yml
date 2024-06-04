@@ -1,0 +1,52 @@
+- name: Install system packages
+  ansible.builtin.apt:
+    pkg: "{{ common_packages.install }}"
+    state: present
+    update_cache: true
+    cache_valid_time: 1800
+  when: common_packages.install is defined and common_packages.install
+  tags: packages, configuration
+
+- name: Enable systemd services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop: "{{ common_packages.services }}"
+  when: common_packages.services is defined and common_packages.services
+  tags: systemd, configuration
+
+- name: Remove system packages
+  ansible.builtin.apt:
+    pkg: "{{ common_packages.uninstall }}"
+    state: absent
+  when: common_packages.uninstall is defined and common_packages.uninstall
+  tags: packages, configuration
+
+- name: Install pip packages
+  ansible.builtin.pip:
+    name: "{{ common_pip.install }}"
+  when: common_pip.install
+  tags: pip, configuration
+
+- name: Install & manage Docker
+  when: common_docker_compose.files is defined and common_docker_compose.files
+  tags: docker
+  block:
+    - name: Install docker-ce
+      ansible.builtin.import_role:
+        name: geerlingguy.docker
+    - name: Add docker-compose projects
+      vars:
+        project_name: "{{ item | splitext | first }}"
+      ansible.builtin.include_tasks:
+        file: docker-project.yml
+        apply:
+          tags: [docker]
+      loop: "{{ common_docker_compose.files }}"
+
+- name: Install mergerfs
+  when: common_mergerfs_release_type | length > 0
+  tags: mergerfs
+  ansible.builtin.import_tasks:
+    file: mergerfs.yml

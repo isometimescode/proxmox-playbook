@@ -1,0 +1,9 @@
+## packages
+common_packages:
+  install:
+    - tmux
+    - tree
+    - jq
+    - btrfs-progs
+
+common_mergerfs_release_type: debian-bookworm_amd64.deb
