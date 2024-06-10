@@ -15,3 +15,7 @@
         - name: Common software
           ansible.builtin.import_role:
             name: common
+
+    - name: Install mergerfs
+      ansible.builtin.import_role:
+        name: mergerfs

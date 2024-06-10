@@ -44,9 +44,3 @@
         apply:
           tags: [docker]
       loop: "{{ common_docker_compose.files }}"
-
-- name: Install mergerfs
-  when: common_mergerfs_release_type | length > 0
-  tags: mergerfs
-  ansible.builtin.import_tasks:
-    file: mergerfs.yml
