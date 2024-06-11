@@ -1,6 +1,7 @@
 ## packages
 common_packages:
   install:
+    - git
     - tmux
     - tree
     - jq
